@@ -14,6 +14,7 @@ import jakarta.persistence.EntityNotFoundException;
 public class ClientService {
     @Autowired
     private ClientRepository clientRepository;
+    public Object delete;
 
     public Client getClientById(int id){
         return clientRepository.findById(id).orElseThrow(
@@ -23,5 +24,19 @@ public class ClientService {
 
     public List<Client> getClients(){
         return clientRepository.findAll();
+    }
+
+    public void deleteById(int id) {
+        Client client = getClientById(id);
+        clientRepository.delete(client);
+    }
+
+    public Client save(Client client) {
+        return clientRepository.save(client);
+    }
+
+    public void update(int id, Client client) {
+        getClientById(id);
+        clientRepository.save(client);
     }
 }
